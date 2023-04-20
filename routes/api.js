@@ -44,4 +44,20 @@ router.post('/', async (req, res) => {
   }
 })
 
+router.get("/:title", async (req, res) => {
+  const searchTitle = req.params.title;
+  try {
+    const album = await Album.find({ title: { $regex: new RegExp(`${searchTitle}`, "i") } }).exec();
+    if (album.length === 0) {
+      res.status(404).send(`No such album with title ${searchTitle} in the database!`);
+      return;
+    }
+    res.json(album);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
+
 module.exports = router;
