@@ -1,73 +1,27 @@
 const express = require("express");
-// const cors = require("cors");
-// const { connectDB } = require("./db/conn.js");
-const mongoose = require('mongoose')
+const cors = require("cors");
+const { dbConnect } = require("./db/dbConnection.js");
 const bodyParser = require("body-parser");
-const AlbumSchema = require("./AlbumSchema")
-// const albumRoutes = require("./routes/album.js");
+const routes = require("./routes/api.js");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const url = process.env.URL;
-// const staticPath = "src/static";
 
-
-// app.use(
-//   cors({
-//     origin: "*",
-//   })
-// );
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
-// app.use(bodyParser.json());
+app.use(cors({ origin: "*", }));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.static("public"))
 
-const connectionParams = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: "Music"
-};
-mongoose.connect(url, connectionParams)
-.then(()=>{console.log('db and mongoose connected');})
-.catch((err) => console.log(err));
-
-// app.use((req, res, next) => {
-//   console.log(`${req.method} ${req.url}`, req.body);
-//   next();
-// });
-
-// app.use(express.static(staticPath));
-
-// app.use("/api/albums", albumRoutes);
-
-app.listen(port, async () => {
-  // await connectDB();
-  console.log(`Server is running on port: ${port}. http://localhost:${port}`);
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`, req.body);
+  next();
 });
 
-app.get('/', async (req, res) => {
-  try {
-    const album = await AlbumSchema.find()
-    res.json(album)
-  } catch (error) {
-    console.log('err',error);
-  }
-})
+app.use("/api/albums", routes);
 
-app.post('/', async (req, res) => {
-  const newAlbum = new AlbumSchema({
-    title: req.body.title,
-    artist: req.body.artist,
-    year: req.body.year
-  })
-  try {
-    const album = await newAlbum.save()
-    res.json(album)
-  } catch (error) {
-    console.log('err', error);
-  }
-})
+app.listen(port, async () => {
+  await dbConnect();
+  console.log(`Server is running on port: ${port}. http://localhost:${port}`);
+});
