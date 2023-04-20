@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table,
+      th,
+      td {
+      border: 1px solid black;
+      }
+    </style>
+    <title>Lab1</title>
+  </head>
+
+  <body>
+    <main>
+      <h2>Albums</h2>
+      <form action="/search" method="get">
+        <label>Search by Title:</label>
+        <input type="text" placeholder="Enter Album Title" id="searchTitle">
+        <button id="searchButton">Search</button>
+      </form>
+
+      <label>Create an Album:</label>
+      <button class="createButton">Enter Album data</button>
+      <div class="content" style="display:none">
+        <form class="row row-cols-4 align-items-end" id="create-album-form">
+          <div class="col">
+            <label class="mx-2" for="title">Title</label>
+            <input class="form-control" type="text" id="title" name="title" required />
+          </div>
+          <div class="col">
+            <label class="mx-2" for="artist">Artist</label>
+            <input class="form-control" type="text" id="artist" name="artist" required />
+          </div>
+          <div class="col">
+            <label class="mx-2" for="year">Year</label>
+            <input class="form-control" type="text" id="year" name="year" required />
+          </div>
+          <div class="col">
+            <button class="mx-3 btn btn-secondary" type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+
+      
+      <h4>This table displays all the Albums in the databse</h4>
+      <table id="album-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table> 
+  
+    <script type="module" src="./client.js"></script>
+    
+  </main>
+  </body>
+</html>
+
