@@ -46,6 +46,29 @@
         </form>
       </div>
 
+    <table class="table align-middle" id="details-table" hidden="true">
+      <h4 id="table-heading-text" hidden="true">Album details</h4>
+      <thead>
+        <tr>
+          <th>_ID</th>
+          <th>Title</th>
+          <th>Artist</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="details-id"></td>
+          <td id="details-title"></td>
+          <td id="details-artist"></td>
+          <td id="details-year"></td>
+          <td>
+            <button class="btn-update mx-2 btn btn-secondary" id="updateButton">Update</button>
+            <button class="btn-delete mx-2 btn btn-secondary" id="deleteButton">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
       
       <h4>This table displays all the Albums in the databse</h4>
       <table id="album-table">
@@ -86,4 +109,3 @@
   </main>
   </body>
 </html>
-
