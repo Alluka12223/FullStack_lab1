@@ -1,6 +1,6 @@
 
 async function getAllAlbums() {
-  let albums = await fetch("http://localhost:3000/api/albums", {
+  let albums = await fetch("/api/albums", {
     method: "GET",
     headers: { "content-type": "application/json" },
   });
@@ -43,7 +43,7 @@ deleteButton.addEventListener("click", async (event) => {
     const row = target.parentNode.parentNode
     await getIdFrom_id(row);
     try {
-      await fetch(`http://localhost:3000/api/albums/${idFrom_id}`, {
+      await fetch(`/api/albums/${idFrom_id}`, {
         method: "DELETE",
       });
       row.remove();
@@ -75,7 +75,7 @@ const albumArea = document.querySelector(".albumArea");
 async function searchByTitle() {
   try {
     const title = searchTitle.value;
-    let searchedAlbum = await fetch(`http://localhost:3000/api/albums/${title}`,
+    let searchedAlbum = await fetch(`/api/albums/${title}`,
       {
         method: "GET",
         headers: {
@@ -86,8 +86,8 @@ async function searchByTitle() {
     let res = `<h3>Searched by Title: "${title}"</h3>`;
     if (title == "") {
       return;
-    } else if (searchedAlbum.status === 404){
-      res+="<p>No such Album can be found in the database!</p>"
+    } else if (searchedAlbum.status === 404) {
+      res += "<p>No such Album can be found in the database!</p>"
     }
     albumArea.innerHTML = res
     searchedAlbum = await searchedAlbum.json();
@@ -167,7 +167,7 @@ updateButton.addEventListener("click", async (event) => {
     try {
 
       const upToDate = await fetch(
-        `http://localhost:3000/api/albums/${idFrom_id}`,
+        `/api/albums/${idFrom_id}`,
         {
           method: "PUT",
           headers: {
@@ -186,7 +186,7 @@ updateButton.addEventListener("click", async (event) => {
 
 async function getIdFrom_id(row) {
   const id = row.querySelector("#details-id").textContent;
-  let albums = await fetch("http://localhost:3000/api/albums", {
+  let albums = await fetch("/api/albums", {
     method: "GET",
     headers: { "content-type": "application/json" },
   });
@@ -205,7 +205,7 @@ postAlbum.addEventListener("submit", async (event) => {
   const artist = document.getElementById("artist").value.trim();
   const year = document.getElementById("year").value.trim();
   try {
-    const response = await fetch("http://localhost:3000/api/albums", {
+    const response = await fetch("/api/albums", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
